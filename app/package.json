@@ -7,7 +7,8 @@
     "build": "webpack --progress --colors",
     "start": "npm run build && NODE_ENV=production babel-node index.js",
     "start:dev": "NODE_ENV=development nodemon index.js --port 3443 --exec babel-node --presets env",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pm2": "pm2"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,7 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "express": "^4.16.2",
+    "pm2": "^2.8.0",
     "redux": "^3.7.2"
   }
 }
