@@ -1,0 +1,17 @@
+
+.header{
+  composes: primary-color from "../../base/colors.css";
+  composes: primary-gutter from "../../base/gutters.css";
+  composes: primary-border-color from "../../base/colors.css";
+  composes: primary-background-color from "../../base/colors.css";
+
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  display: block;
+  font-family: Nunito;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(100% - 32px);
+  z-index: 9999;
+}
