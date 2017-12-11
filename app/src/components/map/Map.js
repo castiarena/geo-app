@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
 import style from './map.css';
 import ScriptsAsync from '../../statics/scripts';
 import googleMapsConfiguration from './google-maps-configuration';
 
-class Map extends React.Component {
+class Map extends Component {
   constructor(props){
     super(props);
     this.gmap = null;
@@ -16,9 +18,21 @@ class Map extends React.Component {
       ReactDOM.findDOMNode(this),
       googleMapsConfiguration({
         center: this.props.center,
-        zoom: 12,
+        zoom: this.props.zoom,
       })
     );
+
+    this._loadListenerMap = google.maps.event
+      .addListener(this.gmap,
+        'bounds_changed',
+        this.handleOnLoad.bind(this)
+      );
+    
+  }
+
+  handleOnLoad(){
+    this.props.onLoad(this.gmap);
+    google.maps.event.removeListener(this._loadListenerMap);    
   }
 
   render(){
@@ -31,5 +45,19 @@ class Map extends React.Component {
     );
   }
 }
+
+Map.defaultProps = {
+  zoom: 14,
+  onLoad: () => {}
+};
+
+Map.propTypes = {
+  center: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired
+  }),
+  zoom: PropTypes.number,
+  onLoad: PropTypes.func
+};
 
 export default Map;
